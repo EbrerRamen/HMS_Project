@@ -20,5 +20,5 @@ Search, Filter and Sorting Functionality: Users can search, sort and filter pati
 
 Discharged Patient Tracking: The system keeps track of discharged patients, maintaining records of discharge dates and details.
 
-#Additional Information
+# Additional Information
 For additional information, kindly go through the "Project Report.pdf"
