@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Admin Profile</title>
+    <link rel="stylesheet" href="{% static 'css/update_create.css' %}">
+</head>
+<body>
+    <h1>Edit Admin Profile</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save Changes</button>
+        <a href="{% url 'custom_admin_dashboard' %}"><button type="button">Cancel</button></a>
+    </form>
+</body>
+</html>

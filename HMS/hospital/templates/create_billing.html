@@ -1,0 +1,25 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Billing</title>
+    <link rel="stylesheet" href="{% static 'css/update_create.css' %}">
+</head>
+<body>
+    <h1>Create Billing</h1>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Create Billing">
+        <a href="{% url 'view_billings' %}"><button type="button">Cancel</button></a>
+    </form>
+</body>
+</html>

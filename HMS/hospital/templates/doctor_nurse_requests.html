@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doctor Requests</title>
+    <link rel="stylesheet" href="{% static 'css/view_admissions.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Doctor Requests</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="{% url 'custom_admin_dashboard' %}">Dashboard</a></li>
+            <li><a href="{% url 'edit_admin_profile' %}">Edit Admin Profile</a></li>
+            <li><a href="{% url 'view_users' %}">Users</a></li>
+            <li><a href="{% url 'view_patients' %}">Patients</a></li>
+            <li><a href="{% url 'view_doctors' %}">Doctors</a></li>
+            <li><a href="{% url 'view_admissions' %}">Admissions</a></li>
+            <li><a href="{% url 'view_departments' %}">Departments</a></li>
+            <li><a href="{% url 'view_wards' %}">Wards</a></li>
+            <li><a href="{% url 'view_shifts' %}">Shifts</a></li>
+            <li><a href="{% url 'view_beds' %}">Beds</a></li>
+            <li><a href="{% url 'view_billings' %}">Billings</a></li>
+            <li><a href="{% url 'view_discharged_patients' %}">Discharged Patients</a></li>
+            <li><a href="{% url 'doctor_nurse_requests' %}">Doctor Requests</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </nav>
+    <form method="GET">
+        {{ form.as_p }}
+        <button type="submit">Search/Filter</button>
+        <a href="{% url 'doctor_nurse_requests' %}?cancel_filter=True">Cancel Filter</a>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Name</th>
+                <th>Specialization</th>
+                <th>Degree</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for doctor in doctor_details %}
+            <tr>
+                <td>{{ doctor.username }}</td>
+                <td>{{ doctor.full_name }}</td>
+                <td>{{ doctor.specialization }}</td>
+                <td>{{ doctor.degree }}</td>
+                <td>{{ doctor.date_joined }}</td>
+                <td>
+                    <a href="{% url 'approve_account' doctor.id %}">Approve</a>
+                    <a href="{% url 'reject_account' doctor.id %}">Reject</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td >No pending doctor requests.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

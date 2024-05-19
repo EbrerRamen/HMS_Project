@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hospital</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    
+</head>
+<body>
+    <header>
+        <div class="hospital-info">
+            <h1>Hospital Name</h1>
+            <p>Hospital Address</p>
+            <p>Contact Number</p>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'department_user_view' %}">Departments</a></li>
+                <li><a href="{% url 'doctor_user_view' %}">Doctors</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'signup' %}">Signup</a></li>
+            </ul>
+        </nav>
+    </header>
+    <form method="GET">
+        {{ form.as_p }}
+        <button type="submit">Search/Filter</button>
+        <a href="{% url 'doctor_user_view' %}?cancel_filter=True">Cancel Filter</a>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Specialization</th>
+                <th>Degree</th>
+                <th>Department</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for doctor in all_doctors %}
+            <tr>
+                <td>{{ doctor.user_profile.full_name }}</td>
+                <td>{{ doctor.specialization }}</td>
+                <td>{{ doctor.qualifications }}</td>
+                <td>{{ doctor.department }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td >No registered doctors available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

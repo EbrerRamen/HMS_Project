@@ -1,0 +1,73 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Doctors</title>
+    <link rel="stylesheet" href="{% static 'css/view_admissions.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Doctors</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="{% url 'custom_admin_dashboard' %}">Dashboard</a></li>
+            <li><a href="{% url 'edit_admin_profile' %}">Edit Admin Profile</a></li>
+            <li><a href="{% url 'view_users' %}">Users</a></li>
+            <li><a href="{% url 'view_patients' %}">Patients</a></li>
+            <li><a href="{% url 'view_doctors' %}">Doctors</a></li>
+            <li><a href="{% url 'view_admissions' %}">Admissions</a></li>
+            <li><a href="{% url 'view_departments' %}">Departments</a></li>
+            <li><a href="{% url 'view_wards' %}">Wards</a></li>
+            <li><a href="{% url 'view_shifts' %}">Shifts</a></li>
+            <li><a href="{% url 'view_beds' %}">Beds</a></li>
+            <li><a href="{% url 'view_billings' %}">Billings</a></li>
+            <li><a href="{% url 'view_discharged_patients' %}">Discharged Patients</a></li>
+            <li><a href="{% url 'doctor_nurse_requests' %}">Doctor Requests</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </nav>
+    <a href="{% url 'create_doctor' %}">Create Doctor</a>
+    <form method="GET">
+        {{ form.as_p }}
+        <button type="submit">Search/Filter</button>
+        <a href="{% url 'view_doctors' %}?cancel_filter=True">Cancel Filter</a>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Shift</th>
+                <th>Specialization</th>
+                <th>Degree</th>
+                <th>Action</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for doctor in all_doctors %}
+            <tr>
+                <td>{{ doctor.user_profile.username }}</td>
+                <td>{{ doctor.user_profile.full_name }}</td>
+                <td>{{ doctor.department }}</td>
+                <td>{{ doctor.shift.get_type_display }}</td>
+                <td>{{ doctor.specialization }}</td>
+                <td>{{ doctor.qualifications }}</td>
+                <td>
+                    <a href="{% url 'edit_doctor' doctor.user_profile.id %}">Edit</a>
+                    <a href="{% url 'delete_doctor' doctor.user_profile.id %}">Delete</a>
+                </td>
+                
+            </tr>
+            {% empty %}
+            <tr>
+                <td >No registered doctors available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Department</title>
+    <link rel="stylesheet" href="{% static 'css/update_create.css' %}">
+</head>
+<body>
+    <h1>Create Department</h1>
+    <form method="post" >
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Create Department">
+        <a href="{% url 'view_departments' %}"><button type="button">Cancel</button></a>
+    </form>
+</body>
+</html>

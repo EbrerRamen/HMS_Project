@@ -1,0 +1,31 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Signup</title>
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+</head>
+<body>
+    <div class="signup-form">
+        <h2>Doctor Signup</h2>
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+            <div class="form-group">
+                <label for="specialization">Specialization:</label>
+                <input type="text" id="specialization" name="specialization" required>
+            </div>
+            <div class="form-group">
+                <label for="degree">Degree:</label>
+                <input type="text" id="degree" name="degree" required>
+            </div>
+            <input type="submit" value="Submit">
+            <a href="{% url 'cancel_signup' user_profile.id %}"><button type="button">Cancel</button></a>
+        </form>
+    </div>
+</body>
+</html>

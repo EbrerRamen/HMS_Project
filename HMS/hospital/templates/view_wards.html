@@ -1,0 +1,66 @@
+{%load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wards List</title>
+    <link rel="stylesheet" href="{% static 'css/view_admissions.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Wards</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="{% url 'custom_admin_dashboard' %}">Dashboard</a></li>
+            <li><a href="{% url 'edit_admin_profile' %}">Edit Admin Profile</a></li>
+            <li><a href="{% url 'view_users' %}">Users</a></li>
+            <li><a href="{% url 'view_patients' %}">Patients</a></li>
+            <li><a href="{% url 'view_doctors' %}">Doctors</a></li>
+            <li><a href="{% url 'view_admissions' %}">Admissions</a></li>
+            <li><a href="{% url 'view_departments' %}">Departments</a></li>
+            <li><a href="{% url 'view_wards' %}">Wards</a></li>
+            <li><a href="{% url 'view_shifts' %}">Shifts</a></li>
+            <li><a href="{% url 'view_beds' %}">Beds</a></li>
+            <li><a href="{% url 'view_billings' %}">Billings</a></li>
+            <li><a href="{% url 'view_discharged_patients' %}">Discharged Patients</a></li>
+            <li><a href="{% url 'doctor_nurse_requests' %}">Doctor Requests</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </nav>
+    <a href="{% url 'create_ward' %}">Create Ward</a>
+    <form method="GET">
+        {{ form.as_p }}
+        <button type="submit">Search/Filter</button>
+        <a href="{% url 'view_wards' %}?cancel_filter=True">Cancel Filter</a>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Ward Name</th>
+                <th>Ward Type</th>
+                <th>Capacity</th>
+                <th>Occupancy</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for ward in wards %}
+            <tr>
+                <td>{{ ward.name }}</td>
+                <td>{{ ward.get_ward_type_display }}</td>
+                <td>{{ ward.capacity }}</td>
+                <td>{{ ward.occupancy }}</td>
+                <td>
+                    <a href="{% url 'edit_ward' ward.id %}">Edit</a>
+                    <a href="{% url 'delete_ward' ward.id %}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,61 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/custom_admin_dashboard.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Hospital Admin Dashboard</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="{% url 'custom_admin_dashboard' %}">Dashboard</a></li>
+            <li><a href="{% url 'edit_admin_profile' %}">Edit Admin Profile</a></li>
+            <li><a href="{% url 'view_users' %}">Users</a></li>
+            <li><a href="{% url 'view_patients' %}">Patients</a></li>
+            <li><a href="{% url 'view_doctors' %}">Doctors</a></li>
+            <li><a href="{% url 'view_departments' %}">Departments</a></li>
+            <li><a href="{% url 'view_shifts' %}">Shifts</a></li>
+            <li><a href="{% url 'view_wards' %}">Wards</a></li>
+            <li><a href="{% url 'view_beds' %}">Beds</a></li>
+            <li><a href="{% url 'view_admissions' %}">Admissions</a></li>
+            <li><a href="{% url 'view_billings' %}">Billings</a></li>
+            <li><a href="{% url 'view_discharged_patients' %}">Discharged Patients</a></li>
+            <li><a href="{% url 'doctor_nurse_requests' %}">Doctor Requests</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section class="admin-panel">
+            <div class="shortcuts">
+                <h3>Quick Links</h3>
+                <ul class="quick-links">
+                    <li><a href="{% url 'create_user' %}">Create User</a></li>
+                    <li><a href="{% url 'create_patient' %}">Create Patient</a></li>
+                    <li><a href="{% url 'create_doctor' %}">Create Doctor</a></li>
+                    <li><a href="{% url 'create_admission' %}">Create Admission</a></li>
+                    <li><a href="{% url 'create_billing' %}">Create Billing</a></li>
+                    <li><a href="{% url 'create_ward' %}">Create Ward</a></li>
+                    <li><a href="{% url 'create_bed' %}">Create Bed</a></li>
+                </ul>
+            </div>
+            <div class="dashboard-counts">
+                <h3>Counts</h3>
+                <ul class="counts">
+                    <li>Total Doctors: {{ total_doctors }}</li>
+                    <li>Total Patients: {{ total_patients }}</li>
+                    <li>Total Admitted Patients: {{ total_admitted_patients }}</li>
+                    <li>Total Billings: {{ total_billings }}</li>
+                    <li>Total Wards: {{ total_wards }}</li>
+                    <li>Total Beds: {{ total_beds }}</li>
+                    <li>Pending Doctor Requests: {{ pending_doctor_requests }}</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Make Appointment</title>
+    <link rel="stylesheet" href="{% static 'css/update_create.css' %}">
+</head>
+<body>
+    <h1>Make Appointment</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="doctor" value="{{ doctorId }}">
+        <label for="patient">Patient ID:</label>
+        <input type="text" id="patient" name="patient">
+        <br>
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date">
+        <br>
+        <label for="time">Time:</label>
+        <input type="time" id="time" name="time">
+        <br>
+        <label for="problem">Problem:</label>
+        <textarea id="problem" name="problem"></textarea>
+        <br>
+        <input type="submit" value="Schedule Appointment">
+    </form>
+</body>
+</html>

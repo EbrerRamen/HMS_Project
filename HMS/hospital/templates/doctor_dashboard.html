@@ -1,0 +1,33 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/doctor_dashboard.css' %}">
+</head>
+<body>
+    <header>
+    </header>
+
+    <main>
+        <section>
+            <h2>Welcome, {{ doctor.user_profile.username }}</h2>
+            <p>Doctor's Details:</p>
+            <ul>
+                <li>Name: {{ doctor.user_profile.first_name }} {{ doctor.user_profile.last_name }}</li>
+                <li>Email: {{ doctor.user_profile.email }}</li>
+                <li>Specialization: {{ doctor.specialization }}</li>
+            </ul>
+        </section>
+
+        <section>
+            <a href="{% url 'appointment_list' %}">Appointment List</a>
+        </section>
+    </main>
+    <a href="{% url 'logout' %}">Logout</a>
+    <footer>
+    </footer>
+    
+</body>
+</html>

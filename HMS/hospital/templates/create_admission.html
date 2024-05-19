@@ -1,0 +1,18 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admit Patient</title>
+    <link rel="stylesheet" href="{% static 'css/update_create.css' %}">
+</head>
+<body>
+    <h1>Admit Patient</h1>
+    <form method="post" >
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Admit">
+        <a href="{% url 'view_admissions' %}"><button type="button">Cancel</button></a>
+    </form>
+</body>
+</html>

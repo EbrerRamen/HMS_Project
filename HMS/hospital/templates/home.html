@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hospital</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+<body>
+    <header>
+        <div class="hospital-info">
+            <h1>Hospital Name</h1>
+            <p>Hospital Address</p>
+            <p>Contact Number</p>
+        </div>
+        
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="{% url 'department_user_view' %}">Departments</a></li>
+                <li><a href="{% url 'doctor_user_view' %}">Doctors</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'signup' %}">Signup</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="about-us" id="about">
+            <h2>About Us</h2>
+            <p>Welcome to our hospital, where compassionate care meets medical innovation. With a dedicated team of healthcare professionals, we strive to provide the highest quality medical services to our patients.</p>
+            <p>Our state-of-the-art facilities, combined with experienced doctors and staff, ensure personalized care tailored to meet individual needs. From routine check-ups to specialized treatments, we are committed to your well-being.</p>
+            <p>At our hospital, we value your health and aim to create a nurturing environment that fosters healing and recovery. We are here to support you on your journey to better health and a brighter future.</p>
+            <a href="https://www.facebook.com/">Visit our facebook page</a>
+        </section>
+
+        <section class="services" id="services">
+            <h2>Our Services</h2>
+            <p>At our hospital, we offer a comprehensive range of medical services aimed at providing holistic care for our patients. Our dedicated team of healthcare professionals is committed to delivering top-notch services across various specialties, ensuring your well-being and comfort.</p>
+            
+            <h3>Medical Care Tailored to Your Needs</h3>
+            <p>From preventive care to specialized treatments, our services cover a wide spectrum of healthcare needs. We provide diagnostic assessments, treatment plans, surgeries, rehabilitation, and ongoing support to ensure optimal health outcomes.</p>
+            
+            <h3>Specialized Departments</h3>
+            <p>We take pride in our specialized departments, including cardiology, neurology, orthopedics, pediatrics, and more. Each department is equipped with state-of-the-art facilities and staffed by experienced professionals dedicated to delivering exceptional care.</p>
+            
+            <h3>Compassionate Support</h3>
+            <p>Our commitment goes beyond medical treatment. We strive to create a supportive and compassionate environment for our patients and their families. We offer counseling, education, and resources to assist in your journey towards health and wellness.</p>
+        </section>
+
+        <section class="departments" id="departments">
+            <h2>Departments</h2>
+            <ul>
+                {% for department in departments %}
+                    <li>{{ department.get_name_display }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        
+
+        <section class="head-doctors" id="doctors">
+            <h2>Our Experienced Doctors</h2>
+            <ul>
+                {% for department in departments %}
+                    <li>{{ department.get_name_display }} - 
+                        {% if department.head_doctor %}
+                            {{ department.head_doctor.user_profile.get_full_name }}
+                        {% else %}
+                            No head doctor assigned
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>Total Doctors: {{ approved_doctors_count }}</p>
+        <p>Total Patients: {{ patients_count }}</p>
+        <p>Hospital Patient Capacity: {{ total_beds }}</p>
+    </footer>
+</body>
+</html>
+

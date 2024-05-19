@@ -1,0 +1,219 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Dashboard</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            border: 2px solid #3498db;
+        }
+
+        h1, h2 {
+            color: #3498db;
+            text-align: center; /* Center the heading text */
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 22px); /* Adjusted input width */
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #3498db;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        a {
+            display: block;
+            margin-top: 20px;
+            color: #3498db;
+            text-decoration: none;
+            text-align: center; /* Center the anchor text */
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Added styling for table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #3498db;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: #fff;
+        }
+    </style>
+    <script>
+        function sortDoctors(order) {
+            var doctorsList = document.getElementById('doctorsList');
+            var doctors = Array.from(doctorsList.children);
+
+            doctors.sort(function(a, b) {
+                var nameA = a.textContent.trim().toLowerCase();
+                var nameB = b.textContent.trim().toLowerCase();
+
+                if (order === 'asc') {
+                    return nameA.localeCompare(nameB);
+                } else {
+                    return nameB.localeCompare(nameA);
+                }
+            });
+
+            for (var i = 0; i < doctors.length; i++) {
+                doctorsList.appendChild(doctors[i]);
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+
+
+        <h1>Welcome to Your Dashboard, {{ user.first_name }}</h1>
+        <h2>Your Information</h2>
+        <div>
+            <form action="{% url 'update_profile' %}" method="post" >
+                {% csrf_token %}
+                <div>
+                    <label for="">First Name</label>
+                    <input class="firstname" type="text" name="first_name" value="{{user.first_name}}">
+                </div>
+                <div>
+                    <label for="">Last Name</label>
+                    <input class="lastname" type="text" name="last_name" value="{{user.last_name}}">
+                </div>
+                <div>
+                    <label for="">Address</label>
+                    <input class="address" type="text" name="address" value="{{user.address}}">
+                </div>
+                <div>
+                    <label for="">Mail</label>
+                    <input class="mail" type="text" name="mail"  value="{{user.email}}">
+                </div>
+                <div>
+                    <label for="">Contacts</label>
+                    <input class="mail" type="text" name="con" value="{{user.contact_no}}">
+                </div>
+                <button type="submit">Update Profile</button>
+            </form>
+
+
+        <div>
+        <h2>Search Doctors:</h2>
+        <form method="GET" action="{% url 'patient_dashboard' %}">
+            <input type="text" name="search_query" placeholder="Enter doctor's name">
+            <button type="submit">Search</button>
+        </form>
+
+
+        <h2>All Doctors:</h2>
+        <div>
+            <button onclick="sortDoctors('asc')">Sort Ascending</button>
+            <button onclick="sortDoctors('desc')">Sort Descending</button>
+        </div>
+        <ul id="doctorsList">
+            {% for doctor in doctors %}
+            <li style="display: flex; align-items: center; list-style: none; margin-bottom: 10px;">
+                {{ doctor.first_name }} {{ doctor.last_name }} - {{ doctor.doctorprofile.specialization }}
+                <a href="{% url 'appointment_view' doctor.doctorprofile.id %}" style="margin-left: 10px;">
+                    <button data-patient-id="{{ user.id }}" data-doctor-id="{{ doctor.doctorprofile.id }}">Book Appointment</button>
+                </a>
+            </li>
+            {% empty %}
+                <li>No doctors found.</li>
+            {% endfor %}
+        </ul>
+
+
+        <h2>Appointments:</h2>
+       
+            {% for appointment in appointments %}
+                <li>{{ appointment.date }} at {{ appointment.time }} - {{ appointment.problem }}</li>
+            {% empty %}
+                <li>No appointments scheduled.</li>
+            {% endfor %}
+   
+       
+        {% if paymentStatus%}
+            <h2>Payment Info:</h2>
+            <p>Total Amount: {{ paymentStatus.total_amount }}</p>
+            <p>Payment Status: {{ paymentStatus.status }}</p>
+        {% endif %}
+        <h2>Medical History:</h2>
+        <p>{{ medical_history }}</p>
+
+
+        <h2>Prescribed Medications:</h2>
+        <p>{{ prescribed_medications }}</p>
+
+
+        <h2>Admission Details</h2>
+
+
+        <li>Name: {{admission.patient}}</li>
+        <li>Ward: {{admission.ward}}</li>
+        <li>Bed: {{admission.bed}}</li>
+        <li>Admission date-time: {{admission.admission_datetime}}</li>
+        <li>Discharge date-time: {{admission.discharge_datetime}}</li>
+
+
+        <a href="{% url 'logout' %}"> <button>Logout </button></a>
+
+
+       
+    </div>
+
+</body>
+</html>

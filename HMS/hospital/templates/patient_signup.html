@@ -1,0 +1,26 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Information</title>
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+</head>
+<body>
+    <h2>Patient Information</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="medical_history">Medical History:</label>
+            <textarea id="medical_history" name="medical_history" rows="4" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="prescriptions">Prescriptions:</label>
+            <textarea id="prescriptions" name="prescriptions" rows="4" required></textarea>
+        </div>
+        <input type="submit" value="Submit">
+        <a href="{% url 'cancel_signup' user_profile.id %}"><button type="button">Cancel</button></a>
+    </form>
+</body>
+</html>

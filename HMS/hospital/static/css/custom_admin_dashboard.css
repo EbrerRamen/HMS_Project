@@ -1,0 +1,119 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+header {
+    background-color: #007bff; 
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #268cfa; 
+    overflow: hidden;
+    text-align: right;
+}
+
+nav li {
+    float: left;
+}
+
+nav li a {
+    display: block;
+    color: #fff;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+nav li a:hover {
+    background-color: #0056b3; 
+}
+
+main {
+    padding: 20px;
+}
+
+.admin-panel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between; 
+}
+
+.shortcuts,
+.dashboard-counts {
+    flex: 1 1 calc(50% - 20px); 
+    background-color: #2196f3; 
+    color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+    min-height: 200px;
+    margin-bottom: 20px;
+}
+
+.shortcuts h3,
+.dashboard-counts h3 {
+    color: #fff;
+    margin-bottom: 15px;
+    text-align: center; 
+}
+
+
+.shortcuts ul,
+.dashboard-counts ul {
+    padding: 0;
+    list-style: none;
+}
+
+.shortcuts li,
+.dashboard-counts li {
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #1976d2; 
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.shortcuts li:hover,
+.dashboard-counts li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+.shortcuts ul li a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    nav li {
+        float: none;
+        display: block;
+        text-align: center;
+    }
+
+    .admin-panel {
+        flex-direction: column;
+    }
+
+    .dashboard-counts,
+    .shortcuts {
+        flex: 1 1 100%;
+    }
+}

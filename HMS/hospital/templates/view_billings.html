@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Billings List</title>
+    <link rel="stylesheet" href="{% static 'css/view_admissions.css' %}">
+    <!-- Other necessary CSS links or stylesheets -->
+</head>
+<body>
+    <header>
+        <h1>Billings</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="{% url 'custom_admin_dashboard' %}">Dashboard</a></li>
+            <li><a href="{% url 'edit_admin_profile' %}">Edit Admin Profile</a></li>
+            <li><a href="{% url 'view_users' %}">Users</a></li>
+            <li><a href="{% url 'view_patients' %}">Patients</a></li>
+            <li><a href="{% url 'view_doctors' %}">Doctors</a></li>
+            <li><a href="{% url 'view_admissions' %}">Admissions</a></li>
+            <li><a href="{% url 'view_departments' %}">Departments</a></li>
+            <li><a href="{% url 'view_wards' %}">Wards</a></li>
+            <li><a href="{% url 'view_shifts' %}">Shifts</a></li>
+            <li><a href="{% url 'view_beds' %}">Beds</a></li>
+            <li><a href="{% url 'view_billings' %}">Billings</a></li>
+            <li><a href="{% url 'view_discharged_patients' %}">Discharged Patients</a></li>
+            <li><a href="{% url 'doctor_nurse_requests' %}">Doctor Requests</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </nav>
+    <a href="{% url 'create_billing' %}">Create Billing</a>
+    <form method="GET">
+        {{ form.as_p }}
+        <button type="submit">Search/Filter</button>
+        <a href="{% url 'view_billings' %}?cancel_filter=True">Cancel Filter</a>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Billing ID</th>
+                <th>Patient</th>
+                <th>Total Amount</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Payment Method</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for billing in billings %}
+            <tr>
+                <td>{{ billing.id }}</td>
+                <td>{{ billing.patient.user_profile.username }}</td>
+                <td>{{ billing.total_amount }}</td>
+                <td>{{ billing.date }}</td>
+                <td>{{ billing.get_status_display }}</td>
+                <td>{{ billing.get_payment_method_display }}</td>
+                <td>
+                    <a href="{% url 'edit_billing' billing.id %}">Edit</a>
+                    <a href="{% url 'delete_billing' billing.id %}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

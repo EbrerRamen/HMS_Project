@@ -1,0 +1,74 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Patients</title>
+    <link rel="stylesheet" href="{% static 'css/view_admissions.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Patients</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="{% url 'custom_admin_dashboard' %}">Dashboard</a></li>
+            <li><a href="{% url 'edit_admin_profile' %}">Edit Admin Profile</a></li>
+            <li><a href="{% url 'view_users' %}">Users</a></li>
+            <li><a href="{% url 'view_patients' %}">Patients</a></li>
+            <li><a href="{% url 'view_doctors' %}">Doctors</a></li>
+            <li><a href="{% url 'view_admissions' %}">Admissions</a></li>
+            <li><a href="{% url 'view_departments' %}">Departments</a></li>
+            <li><a href="{% url 'view_wards' %}">Wards</a></li>
+            <li><a href="{% url 'view_shifts' %}">Shifts</a></li>
+            <li><a href="{% url 'view_beds' %}">Beds</a></li>
+            <li><a href="{% url 'view_billings' %}">Billings</a></li>
+            <li><a href="{% url 'view_discharged_patients' %}">Discharged Patients</a></li>
+            <li><a href="{% url 'doctor_nurse_requests' %}">Doctor Requests</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </nav>
+    <a href="{% url 'create_patient' %}">Create Patient</a>
+    <form method="GET">
+        {{ form.as_p }}
+        <button type="submit">Search/Filter</button>
+        <a href="{% url 'view_patients' %}?cancel_filter=True">Cancel Filter</a>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Name</th>
+                <th>Medical History</th>
+                <th>Prescribed Medications</th>
+                <th>Admission ID</th>
+                <th>Billing ID</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for patient in all_patients %}
+            <tr>
+                
+                <td>{{ patient.user_profile.username }}</td>
+                <td>{{ patient.user_profile.full_name }}</td>
+                <td>{{ patient.medical_history }}</td>
+                <td>{{ patient.prescribed_medications }}</td>
+                <td>{{ patient.admission.id}}</td>
+                <td>{{ patient.billing.id}}</td>
+                <td>
+                    <a href="{% url 'edit_patient' patient.id %}">Edit</a>
+                    <a href="{% url 'delete_patient' patient.id %}">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td>No patients available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+

@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hospital</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+<body>
+    <header>
+        <div class="hospital-info">
+            <h1>Hospital Name</h1>
+            <p>Hospital Address</p>
+            <p>Contact Number</p>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'department_user_view' %}">Departments</a></li>
+                <li><a href="{% url 'doctor_user_view' %}">Doctors</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'signup' %}">Signup</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="departments">
+            <h2>All Departments</h2>
+            <ul>
+                {% for data in department_data %}
+                    <li>
+                        <h3>{{ data.department.get_name_display }}</h3>
+                        <p>{{ data.department.description }}</p>
+                        <p>Head Doctor: 
+                            {% if data.department.head_doctor %}
+                                {{ data.department.head_doctor.user_profile.get_full_name }}
+                            {% else %}
+                                No head doctor assigned
+                            {% endif %}
+                        </p>
+                        <p>Total Doctors: {{ data.approved_doctors_count }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+</body>
+</html>
