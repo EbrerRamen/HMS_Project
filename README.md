@@ -19,3 +19,6 @@ Ward Occupancy Control: Real-time occupancy tracking prevents exceeding ward cap
 Search, Filter and Sorting Functionality: Users can search, sort and filter patients, doctors, and other entities based on criteria such as department, name, or ID for ease of access.
 
 Discharged Patient Tracking: The system keeps track of discharged patients, maintaining records of discharge dates and details.
+
+#Additional Information
+For additional information, kindly go through the "Project Report.pdf"
