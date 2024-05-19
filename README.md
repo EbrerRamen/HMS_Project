@@ -22,3 +22,4 @@ Discharged Patient Tracking: The system keeps track of discharged patients, main
 
 # Additional Information
 For additional information, kindly go through the "Project Report.pdf"
+Main Project folder - HMS
