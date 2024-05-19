@@ -7,7 +7,7 @@ Financial operations are streamlined through an integrated billing system, facil
 
 In essence, our Healthcare Management System embodies efficiency, precision, and care, aiming to elevate healthcare experiences for both providers and recipients.
 
-# HMS_Project
+# Project Features
 Admin Privileges: The admin account holds the authority to add, remove, edit, and view patient, doctor, and other entity records within the system.
 
 Role-Based Actions: Doctor accounts can access patient profiles, manage appointments, while patient accounts can request for appointments.
